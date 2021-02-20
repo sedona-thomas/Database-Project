@@ -17,3 +17,4 @@ math,tau
 math,inf
 datetime,MINYEAR
 datetime,MAXYEAR
+numpy,shape
