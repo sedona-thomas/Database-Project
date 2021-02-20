@@ -1,0 +1,11 @@
+method_name,parameter,type
+add,a,
+add,b,
+sub,a,
+sub,b,
+mul,a,
+mul,b,
+truediv,a,
+truediv,b,
+floordiv,a,
+floordiv,b,
