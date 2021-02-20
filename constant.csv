@@ -11,3 +11,9 @@ octdigits,str,"01234567",Output: string of octal digits
 punctuation,str,"!""#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~",Output: string of all punctuation characters
 printable,str,"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!""#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c",Output: string of all printable characters
 whitespace,str," \t\n\r\x0b\x0c",Output: string of all whitespace characters
+pi,float,"3.141592653589793",Output: value of pi
+e,float,"2.718281828459045",Output: Euler's constant
+tau,float,"6.283185307179586",Output: Tau
+inf,float,"inf",Output: infinity
+MINYEAR,int,"1",Output: minimum year
+MAXYEAR,int,"9999",Output: maximum year
