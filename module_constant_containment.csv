@@ -1,0 +1,13 @@
+module_name,constant_name
+string,ascii_letters
+string,ascii_lowercase
+string,ascii_uppercase
+string,digits
+string,hexdigits
+string,letters
+string,lowercase
+string,uppercase
+string,octdigits
+string,punctuation
+string,printable
+string,whitespace
