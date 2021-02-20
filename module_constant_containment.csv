@@ -11,3 +11,9 @@ string,octdigits
 string,punctuation
 string,printable
 string,whitespace
+math,pi
+math,e
+math,tau
+math,inf
+datetime,MINYEAR
+datetime,MAXYEAR
