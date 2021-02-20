@@ -1,0 +1,83 @@
+name,returns,return_type,description
+lt,,bool,Output: less than (<)
+le,,bool,Output: less than or equal to (<=)
+eq,,bool,Output: equal to (==)
+ne,,bool,Output: not equal to (!=)
+ge,,bool,Output: greater than or equal to (>=)
+gt,,bool,Output: greater than (>)
+add,,,Output: addition (+)
+sub,,,Output: subtraction (-)
+mul,,,Output: multiplication (*)
+truediv,,,Output: true division (/)
+floordiv,,int,Output: floor division (//)
+mod,,,Output: modular division (modulo) (%)
+pow,,,Output: exponentiation (**)
+concat,,,Output: concatenation (+) 
+contains,,,Output: containment (in) 
+and_,,,Output: bitwise and (&)
+or_,,,Output: bitwise or (|)
+xor,,,Output: bitwise xor (^)
+invert,,,Output: bitwise not (~)
+neg,,,Output: arithmatic negation (-)
+not_,,,Output: logical negation (not)
+pos,,,Output: positive (+)
+iadd,,,Output: addition (+)
+isub,,,Output: subtraction (-)
+imul,,,Output: multiplication (*)
+itruediv,,,Output: true division (/)
+ifloordiv,,int,Output: floor division (//)
+imod,,,Output: modular division (modulo) (%)
+ipow,,,Output: exponentiation (**)
+iconcat,,,Output: concatenation (+) 
+iand,,,Output: bitwise and (&)
+ior,,,Output: bitwise or (|)
+ixor,,,Output: bitwise xor (^)
+print,None,None,Output: prints input to user
+abs,,type(parameter),Output: absolute value of element
+len,,int,Output: length of collection
+min,,type(element),Output: minimum of collection
+max,,type(element),Output: maximum of collection
+sum,,type(elements),Output: sum of collection
+range,,range,Output: range from start value to one less than end
+all,,bool,Output: true if all elements evaluate to true
+any,,bool,Output: true if any element evaluates to true
+list,,list,Output: list constructor
+sorted,,list,Output: returns sorted copy of list
+reversed,,list_reverseiterator,Output: returns a reverse list iterator
+tuple,,tuple,Output: tuple constructor
+str,,str,Output: converts to string
+ord,,int,Output: Unicode value of inputted character
+chr,,char,Output: character at inputted Unicode value
+set,,set,Output: set constructor
+dict,,dict,Output: dictionary constructor
+open,,TextIOWrapper,Output: opens file in mode
+close,,None,Output: closes file
+write,,int,Output: writes to file
+read,,str,Output: looks at the whole document as a string
+readline,,str,Output: looks at each line as a string
+random,,float,Output: random number between 0 and 1
+randint,,int,Output: random integer between low and high
+choice,,type(output),Output: randomly chooses from list
+figure,,,Output: new figure
+plot,,,Output: plots data
+subplot,,,Output: makes subplot
+scatter,,,Output: makes scatter plot
+grid,,,Output: adds grid to next graph
+legend,,,Output: creates legend
+savefig,,,Output: graph saved as file_name.file_type
+hist,,,Output: histogram
+linspace,,,Output: array([list_of_values])
+array,,,Output: array(list)
+zeros,,,"Output: list with number of rows, number of columns, and number of 0.0s"
+ones,,,"Output: list with number of rows, number of columns, and number of 1.0s"
+copy,,,Output: copy of array
+sum,,,Output: sums elements of array
+dot,,,Output: dot product of vectors
+cross,,,Output: cross product of vectors
+transpose,,,Output: the transpose of the array
+reshape,,,Output: reshapes array
+max,,,Output: vector of maximum values of columns
+min,,,Output: vector of minimum values of columns
+mean,,,Output: returns mean of array
+std,,,Output: returns standard deviation of array
+genfromtxt,,,Output: array with data from file

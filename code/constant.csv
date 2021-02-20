@@ -1,0 +1,20 @@
+name,type,value,description
+ascii_letters,str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",Output: string of all ascii characters
+ascii_lowercase,str,"abcdefghijklmnopqrstuvwxyz",Output: string of all lowercase ascii letters
+ascii_uppercase,str,"ABCDEFGHIJKLMNOPQRSTUVWXYZ",Output: string of all uppercase ascii letters
+digits,str,"0123456789",Output: string of all digits
+hexdigits,str,"0123456789abcdefABCDEF",Output: string of all hexadecimal digits
+letters,str,"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",Output: string of local letters
+lowercase,str,"abcdefghijklmnopqrstuvwxyz",Output: string of local lowercase letters
+uppercase,str,"ABCDEFGHIJKLMNOPQRSTUVWXYZ",Output: string of uppercase letters
+octdigits,str,"01234567",Output: string of octal digits
+punctuation,str,"!""#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~",Output: string of all punctuation characters
+printable,str,"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!""#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c",Output: string of all printable characters
+whitespace,str," \t\n\r\x0b\x0c",Output: string of all whitespace characters
+pi,float,"3.141592653589793",Output: value of pi
+e,float,"2.718281828459045",Output: Euler's constant
+tau,float,"6.283185307179586",Output: Tau
+inf,float,"inf",Output: infinity
+MINYEAR,int,"1",Output: minimum year
+MAXYEAR,int,"9999",Output: maximum year
+shape,int,,Output: size of array with size defined from the outside list inward						
