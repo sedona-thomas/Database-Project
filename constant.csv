@@ -1,0 +1,13 @@
+name,type,value,description
+ascii_letters,str,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',Output: string of all ascii characters
+ascii_lowercase,str,'abcdefghijklmnopqrstuvwxyz',Output: string of all lowercase ascii letters
+ascii_uppercase,str,'ABCDEFGHIJKLMNOPQRSTUVWXYZ',Output: string of all uppercase ascii letters
+digits,str,'0123456789',Output: string of all digits
+hexdigits,str,'0123456789abcdefABCDEF',Output: string of all hexadecimal digits
+letters,str,'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',Output: string of local letters
+lowercase,str,'abcdefghijklmnopqrstuvwxyz',Output: string of local lowercase letters
+uppercase,str,'ABCDEFGHIJKLMNOPQRSTUVWXYZ',Output: string of uppercase letters
+octdigits,str,'01234567',Output: string of octal digits
+punctuation,str,'!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~',Output: string of all punctuation characters
+printable,str,'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ \t\n\r\x0b\x0c',Output: string of all printable characters
+whitespace,str,' \t\n\r\x0b\x0c',Output: string of all whitespace characters
