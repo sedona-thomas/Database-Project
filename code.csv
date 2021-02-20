@@ -2,3 +2,4 @@ filepath,filename,text,file_size
 Lib/operator.py,operator.py,https://github.com/python/cpython/blob/3.9/Lib/operator.py,
 Lib/datetime.py,datetime.py,https://github.com/python/cpython/blob/3.9/Lib/datetime.py,
 Lib/string.py,string.py,https://github.com/python/cpython/blob/3.9/Lib/string.py,
+Lib/random.py,random.py,https://github.com/python/cpython/blob/3.9/Lib/random.py
