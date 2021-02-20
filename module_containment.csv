@@ -1,1 +1,4 @@
 filepath,module_name
+Lib/operator.py,operator
+Lib/datetime.py,datetime
+Lib/string.py,string
