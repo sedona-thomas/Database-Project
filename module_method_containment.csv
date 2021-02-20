@@ -32,3 +32,5 @@ operator,iconcat
 operator,iand
 operator,ior
 operator,ixor
+pyplot,
+numpy,
