@@ -3,3 +3,6 @@ Lib/operator.py,operator
 Lib/datetime.py,datetime
 Lib/string.py,string
 Lib/random.py,random
+/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/__init__.py,matplotlib
+/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/pyplot.py,pyplot
+/usr/local/anaconda3/lib/python3.8/site-packages/numpy/__init__.py,numpy
