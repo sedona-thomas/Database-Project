@@ -3,4 +3,6 @@ Lib/operator.py,operator.py,https://github.com/python/cpython/blob/3.9/Lib/opera
 Lib/datetime.py,datetime.py,https://github.com/python/cpython/blob/3.9/Lib/datetime.py,
 Lib/string.py,string.py,https://github.com/python/cpython/blob/3.9/Lib/string.py,
 Lib/random.py,random.py,https://github.com/python/cpython/blob/3.9/Lib/random.py,
-matplotlib,matplotlib,https://github.com/matplotlib/matplotlib,
+/usr/local/anaconda3/lib/python3.8/site-packages/numpy/__init__.py,numpy,https://github.com/numpy/numpy,
+/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/__init__.py,matplotlib,https://github.com/matplotlib/matplotlib,
+/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/pyplot.py,pyplot.py,https://github.com/matplotlib/matplotlib,
