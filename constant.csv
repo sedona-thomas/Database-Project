@@ -17,4 +17,4 @@ tau,float,"6.283185307179586",Output: Tau
 inf,float,"inf",Output: infinity
 MINYEAR,int,"1",Output: minimum year
 MAXYEAR,int,"9999",Output: maximum year
-shape,int,"",Output: size of array with size defined from the outside list inward						
+shape,int,,Output: size of array with size defined from the outside list inward						
