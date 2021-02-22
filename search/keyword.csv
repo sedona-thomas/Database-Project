@@ -50,7 +50,6 @@ division
 div
 floor
 modular
-division
 modulo
 mod
 exponentiation
@@ -66,7 +65,6 @@ bitwise
 and
 or
 xor
-not
 negation
 arithmatic
 logical
