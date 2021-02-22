@@ -1,8 +1,8 @@
-name
-string
-math
-datetime
-operator
-random
-pyplot
-numpy
+name,filepath
+string,Lib/string.py
+math,
+datetime,Lib/datetime.py
+operator,Lib/operator.py
+random,Lib/random.py
+pyplot,/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/pyplot.py
+numpy,/usr/local/anaconda3/lib/python3.8/site-packages/numpy/__init__.py
