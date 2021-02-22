@@ -29,11 +29,9 @@ date
 time
 operator
 operate
-random
 rand
 pyplot
 plt
-plot
 numpy
 np
 matplotlib
@@ -91,8 +89,6 @@ reverse
 reversed
 tuple
 convert
-string
-str
 Unicode
 character
 set
