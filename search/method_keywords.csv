@@ -112,38 +112,73 @@ tuple,constructor
 str,convert
 str,string
 str,str
-ord,,int,Output: Unicode value of inputted character
-chr,,char,Output: character at inputted Unicode value
-set,,set,Output: set constructor
-dict,,dict,Output: dictionary constructor
-open,,TextIOWrapper,Output: opens file in mode
-close,,None,Output: closes file
-write,,int,Output: writes to file
-read,,str,Output: looks at the whole document as a string
-readline,,str,Output: looks at each line as a string
-random,,float,Output: random number between 0 and 1
-randint,,int,Output: random integer between low and high
-choice,,type(output),Output: randomly chooses from list
-figure,,,Output: new figure
-plot,,,Output: plots data
-subplot,,,Output: makes subplot
-scatter,,,Output: makes scatter plot
-grid,,,Output: adds grid to next graph
-legend,,,Output: creates legend
-savefig,,,Output: graph saved as file_name.file_type
-hist,,,Output: histogram
-linspace,,,Output: array([list_of_values])
-array,,,Output: array(list)
-zeros,,,"Output: list with number of rows, number of columns, and number of 0.0s"
-ones,,,"Output: list with number of rows, number of columns, and number of 1.0s"
-copy,,,Output: copy of array
-sum,,,Output: sums elements of array
-dot,,,Output: dot product of vectors
-cross,,,Output: cross product of vectors
-transpose,,,Output: the transpose of the array
-reshape,,,Output: reshapes array
-max,,,Output: vector of maximum values of columns
-min,,,Output: vector of minimum values of columns
-mean,,,Output: returns mean of array
-std,,,Output: returns standard deviation of array
-genfromtxt,,,Output: array with data from file
+ord,Unicode
+ord,character
+ord,string
+chr,character
+chr,Unicode
+chr,string
+set,set
+set,constructor
+dict,dictionary
+dict,constructor
+dict,dict
+open,open
+open,file
+open,mode
+close,close
+close,file
+write,write
+write,file
+write,mode
+read,read
+read,file
+read,mode
+readline,read
+readline,file
+readline,mode
+random,random
+random,number
+randint,random
+randint,integer
+choice,random
+choice,choice
+choice,list
+figure,figure
+figure,plot
+plot,plot
+plot,data
+subplot,plot
+subplot,data
+scatter,plot
+scatter,data
+grid,plot
+grid,data
+legend,plot
+legend,data
+savefig,save
+savefig,plot
+savefig,data
+hist,plot
+hist,data
+linspace,array
+array,array
+zeros,array
+ones,array
+copy,array
+copy,copy
+sum,sum
+sum,add
+sum,array
+dot,product
+dot,array
+cross,array
+cross,product
+transpose,array
+reshape,array
+mean,array
+mean,mean
+std,standard
+std,deviation
+std,array
+genfromtxt,array
