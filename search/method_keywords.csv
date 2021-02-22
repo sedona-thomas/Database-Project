@@ -169,9 +169,6 @@ zeros,array
 ones,array
 copy,array
 copy,copy
-sum,sum
-sum,add
-sum,array
 dot,product
 dot,array
 cross,array
