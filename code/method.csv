@@ -71,13 +71,10 @@ array,,Output: array(list)
 zeros,,"Output: list with number of rows, number of columns, and number of 0.0s"
 ones,,"Output: list with number of rows, number of columns, and number of 1.0s"
 copy,,Output: copy of array
-sum,,Output: sums elements of array
 dot,,Output: dot product of vectors
 cross,,Output: cross product of vectors
 transpose,,Output: the transpose of the array
 reshape,,Output: reshapes array
-max,,Output: vector of maximum values of columns
-min,,Output: vector of minimum values of columns
 mean,,Output: returns mean of array
 std,,Output: returns standard deviation of array
 genfromtxt,,Output: array with data from file
