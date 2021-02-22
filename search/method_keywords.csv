@@ -39,6 +39,7 @@ or_,bitwise
 or_,or
 xor,bitwise
 xor,xor
+xor,or
 invert,bitwise
 invert,not
 invert,negation
@@ -85,6 +86,7 @@ ior,or
 ior,in-place
 ixor,bitwise
 ixor,xor
+ixor,or
 ixor,in-place
 print,print
 abs,absolute
