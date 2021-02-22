@@ -1,1 +1,13 @@
 keyword1,keyword2
+hexdigits,octdigits
+digits,hexdigits
+digits,octdigits
+pi,e
+e,tau
+minyear,maxyear
+ascii,ascii_letters
+ascii,ascii_lowercase
+ascii,ascii_uppercase
+case,lowercase
+case,uppercase
+uppercase,lowercase
