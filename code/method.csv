@@ -76,8 +76,6 @@ dot,,,Output: dot product of vectors
 cross,,,Output: cross product of vectors
 transpose,,,Output: the transpose of the array
 reshape,,,Output: reshapes array
-max,,,Output: vector of maximum values of columns
-min,,,Output: vector of minimum values of columns
 mean,,,Output: returns mean of array
 std,,,Output: returns standard deviation of array
 genfromtxt,,,Output: array with data from file
