@@ -1,1 +1,149 @@
 name,keyword
+lt,less
+le,less
+le,equal
+eq,equal
+ne,not
+ne,equal
+ge,greater
+ge,equal
+gt,greater
+add,addition
+add,add
+sub,subtraction
+sub,sub
+mul,multiplication
+mul,mul
+truediv,true
+truediv,division
+truediv,div
+floordiv,floor
+floordiv,division
+floordiv,div
+mod,modular
+mod,division
+mod,modulo
+mod,mod
+pow,exponentiation
+pow,exp
+pow,power
+pow,pow
+concat,concatenation
+concat,concat
+concat,join
+contains,containment
+contains,in 
+and_,bitwise
+and_,and
+or_,bitwise
+or_,or
+xor,bitwise
+xor,xor
+invert,bitwise
+invert,not
+invert,negation
+neg,arithmatic
+neg,negation
+neg,not
+not_,logical
+not_,negation
+not_,not
+pos,positive
+pos,pos
+iadd,addition
+iadd,in-place
+isub,subtraction
+isub,in-place
+imul,multiplication
+itruediv,true
+itruediv,division
+itruediv,div
+itruediv,in-place
+ifloordiv,floor
+ifloordiv,division
+ifloordiv,div
+ifloordiv,in-place
+imod,modular
+imod,division
+imod,modulo
+imod,mod
+imod,in-place
+ipow,exponentiation
+ipow,exp
+ipow,power
+ipow,pow
+ipow,in-place
+iconcat,concatenation
+iconcat,concat
+iconcat,join
+iconcat,in-place
+iand,bitwise
+iand,and
+iand,in_place
+ior,bitwise
+ior,or
+ior,in-place
+ixor,bitwise
+ixor,xor
+ixor,in-place
+print,print
+abs,absolute
+len,length
+len,collection
+min,minimum
+min,collection
+max,maximum
+max,collection
+sum,sum
+sum,collection
+range,range
+all,truth
+any,truth
+list,list
+list,constructor
+sorted,sorted
+sorted,list
+sorted,sort
+reversed,reverse
+reversed,list
+reversed,reversed
+tuple,tuple
+tuple,constructor
+str,convert
+str,string
+str,str
+ord,,int,Output: Unicode value of inputted character
+chr,,char,Output: character at inputted Unicode value
+set,,set,Output: set constructor
+dict,,dict,Output: dictionary constructor
+open,,TextIOWrapper,Output: opens file in mode
+close,,None,Output: closes file
+write,,int,Output: writes to file
+read,,str,Output: looks at the whole document as a string
+readline,,str,Output: looks at each line as a string
+random,,float,Output: random number between 0 and 1
+randint,,int,Output: random integer between low and high
+choice,,type(output),Output: randomly chooses from list
+figure,,,Output: new figure
+plot,,,Output: plots data
+subplot,,,Output: makes subplot
+scatter,,,Output: makes scatter plot
+grid,,,Output: adds grid to next graph
+legend,,,Output: creates legend
+savefig,,,Output: graph saved as file_name.file_type
+hist,,,Output: histogram
+linspace,,,Output: array([list_of_values])
+array,,,Output: array(list)
+zeros,,,"Output: list with number of rows, number of columns, and number of 0.0s"
+ones,,,"Output: list with number of rows, number of columns, and number of 1.0s"
+copy,,,Output: copy of array
+sum,,,Output: sums elements of array
+dot,,,Output: dot product of vectors
+cross,,,Output: cross product of vectors
+transpose,,,Output: the transpose of the array
+reshape,,,Output: reshapes array
+max,,,Output: vector of maximum values of columns
+min,,,Output: vector of minimum values of columns
+mean,,,Output: returns mean of array
+std,,,Output: returns standard deviation of array
+genfromtxt,,,Output: array with data from file
