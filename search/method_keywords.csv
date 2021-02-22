@@ -80,7 +80,7 @@ iconcat,join
 iconcat,in-place
 iand,bitwise
 iand,and
-iand,in_place
+iand,in-place
 ior,bitwise
 ior,or
 ior,in-place
