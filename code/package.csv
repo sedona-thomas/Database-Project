@@ -1,2 +1,2 @@
-name
-matplotlib
+name,filepath
+matplotlib,/usr/local/anaconda3/lib/python3.8/site-packages/matplotlib/__init__.py
