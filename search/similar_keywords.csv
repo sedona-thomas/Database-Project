@@ -13,7 +13,6 @@ case,lowercase
 case,uppercase
 uppercase,lowercase
 print,printable
-string,str
 math,number
 datetime,date
 datetime,time
