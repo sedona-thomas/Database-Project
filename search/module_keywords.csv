@@ -1,0 +1,16 @@
+name,keyword
+string,string
+string,str
+math,math
+datetime,datetime
+datetime,date
+datetime,time
+operator,operator
+operator,operate
+random,random
+random,rand
+pyplot,pyplot
+pyplot,plt
+pyplot,plot
+numpy,numpy
+numpy,np
