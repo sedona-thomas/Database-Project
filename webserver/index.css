@@ -1,0 +1,89 @@
+/* 
+ * Written by Sedona Thomas
+ * css style sheet: index.html
+ */
+
+body
+{
+    background-color: #FFFFFF
+    margin:30;
+    padding:0;
+    font-family: TimesNewRoman;
+    text-align: left;
+    font-size: 17px;
+    color: #000000;
+}
+
+h1 
+{
+    font-size:50px;
+}
+
+h2
+{
+    font-size: 40px;
+}
+
+h3 
+{
+    font-size: 25px;
+}
+
+h4
+{
+    font-size: 20px;
+}
+
+hr
+{
+    background-color: #000000;
+    display: block; 
+    height: 1px;
+    border: 0; 
+    border-top: 1px solid #3333FF;
+    margin: 1em 0; 
+    padding: 0; 
+}
+
+#navigation 
+{
+    width:99%;
+    border:solid 1px #3333FF;
+    background-color:#A4BED8;
+    padding:3px;
+}
+
+#navigation h2
+{
+    display:none;
+}
+
+#navigation a 
+{
+    color:#000000;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+#navigation a:hover 
+{
+    color:#003DF5;
+}
+
+#navigation ul 
+{
+    text-align:center;
+    margin: 0px;
+    list-style-type:none;
+}
+
+#navigation ul li 
+{
+    display:inline;
+    margin: 0px 10px;
+}
+
+#nav 
+{
+    text-align: center;
+}
