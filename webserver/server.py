@@ -13,7 +13,7 @@ import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
-import methods
+import methods # app specific methods in methods.py
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -49,6 +49,25 @@ def teardown_request(exception):
     pass
 
 
+
+'''
+    User Information
+'''
+
+CURRENT_USER_ID = None
+
+# add user to database
+@app.route('/choose_user', methods=['POST'])
+def choose_user():
+  CURRENT_USER_ID = int(g.conn.execute("SELECT user-id FROM user WHERE name = %s", username))
+  return redirect('/')
+
+
+
+'''
+    Navigation
+'''
+
 # localhost:8111/
 @app.route('/')
 def index():
@@ -76,6 +95,7 @@ def index():
 @app.route('/index.html')
 def other_index():
     return index()
+
 
 '''
     Database Pages
@@ -139,7 +159,6 @@ def add_user():
   return redirect('/')
 
 
-
 if __name__ == "__main__":
   import click
 
@@ -196,4 +215,29 @@ engine.execute("""CREATE TABLE IF NOT EXISTS test (
   name text
 );""")
 engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
+'''
+
+'''
+# localhost:8111/
+@app.route('/')
+def index():
+  """
+  request is a special object that Flask provides to access web request information:
+      request.method:   "GET" or "POST"
+      request.form:     if the browser submitted a form, this contains the data in the form
+      request.args:     dictionary of URL arguments, e.g., {a:1, b:2} for http://localhost?a=1&b=2
+  See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
+  """
+  
+  print(request.args)
+
+  cursor = g.conn.execute("SELECT name FROM test")
+  names = []
+  for result in cursor:
+    names.append(result['name'])  # can also be accessed using result[0]
+  cursor.close()
+
+  context = dict(data = names)
+
+  return render_template("index.html", **context)
 '''
