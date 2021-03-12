@@ -72,6 +72,11 @@ def index():
 
   return render_template("index.html", **context)
 
+# localhost:8111/index.html
+@app.route('/index.html')
+def other_index():
+    return index()
+
 '''
     Database Pages
 '''
