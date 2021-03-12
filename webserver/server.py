@@ -22,13 +22,6 @@ DATABASEURI = "postgresql://jjk2235:512791@34.73.36.248/project1"
 
 engine = create_engine(DATABASEURI)
 
-engine.execute("""CREATE TABLE IF NOT EXISTS test (
-  id serial,
-  name text
-);""")
-engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
-
-
 @app.before_request
 def before_request():
   """
@@ -95,26 +88,43 @@ def index():
 
   return render_template("index.html", **context)
 
+'''
+    Database Pages
+'''
 
-# localhost:8111/another
-@app.route('/another')
-def another():
-  return render_template("another.html")
+# localhost:8111/packages
+@app.route('/packages')
+def packages():
+  return render_template("packages.html")
+
+# localhost:8111/modules
+@app.route('/modules')
+def modules():
+  return render_template("modules.html")
+
+# localhost:8111/methods
+@app.route('/methods')
+def methods():
+  return render_template("methods.html")
+
+# localhost:8111/constants
+@app.route('/constants')
+def constants():
+  return render_template("constants.html")
 
 
-# Example of adding new data to the database
+'''
+    Add Information to Database
+'''
+
+# add user to database
 @app.route('/add_user', methods=['POST'])
 def add_user():
-  user_id = g.conn.execute("SELECT MAX(user-id) FROM user") + 1
+  user_id = int(g.conn.execute("SELECT MAX(user-id) FROM user")) + 1
   name = request.form['name']
   g.conn.execute('INSERT INTO user(user-id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
 
-
-@app.route('/login')
-def login():
-    abort(401)
-    this_is_never_executed()
 
 
 if __name__ == "__main__":
@@ -125,17 +135,14 @@ if __name__ == "__main__":
   @click.option('--threaded', is_flag=True)
   @click.argument('HOST', default='0.0.0.0')
   @click.argument('PORT', default=8111, type=int)
+  
   def run(debug, threaded, host, port):
     """
     This function handles command line parameters.
     Run the server using:
-
         python server.py
-
     Show the help text using:
-
         python server.py --help
-
     """
 
     HOST, PORT = host, port
@@ -143,3 +150,33 @@ if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
   run()
+
+
+
+
+'''
+    Miscellaneous
+'''
+
+'''
+# localhost:8111/another_page
+@app.route('/another_page')
+def another_page():
+  return render_template("another_page.html")
+'''
+
+'''
+@app.route('/login')
+def login():
+    abort(401)
+    this_is_never_executed()
+'''
+
+'''
+# execute SQL command in database
+engine.execute("""CREATE TABLE IF NOT EXISTS test (
+  id serial,
+  name text
+);""")
+engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
+'''
