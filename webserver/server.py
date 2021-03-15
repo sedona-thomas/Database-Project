@@ -66,7 +66,8 @@ def choose_user():
   for result in cursor:
     user_ids.append(result['user_id'])  # can also be accessed using result[0]
   cursor.close()
-
+  
+  global CURRENT_USER_ID
   CURRENT_USER_ID = int(user_ids[0])
   return redirect('/')
 
