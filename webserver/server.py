@@ -95,13 +95,16 @@ def index():
   for result in cursor:
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
-    
-  username = request.form['username']
-  cursor = g.conn.execute("SELECT user_id FROM users WHERE name = %s", username)
-  user_ids = []
-  for result in cursor:
-    user_ids.append(result['user_id'])  # can also be accessed using result[0]
-  cursor.close()
+  
+  if CURRENT_USER_ID = None:
+    username = None
+  else:
+    username = request.form['username']
+    cursor = g.conn.execute("SELECT user_id FROM users WHERE name = %s", username)
+    user_ids = []
+    for result in cursor:
+      user_ids.append(result['user_id'])  # can also be accessed using result[0]
+    cursor.close()
 
   context = {"data": names, "CURRENT_USER_ID": CURRENT_USER_ID, "username": username}
 
