@@ -162,21 +162,16 @@ def add_user():
   cursor = g.conn.execute("SELECT MAX(user_id) as max FROM users")
   user_ids = []
   for result in cursor:
-    print("user_id: ",result['max'])
     user_ids.append(result['max'])  # can also be accessed using result[0]
   cursor.close()
   
   user_id = int(user_ids[0]) + 1
-
-  print(user_id)
-  print(request.args['name'])
-  name = request.args['name']
+  name = request.form['name']
   
- # command = """INSERT INTO users(user_id, name) VALUES (%s, %s)""".format(user_id, name)
- # engine.execute(command)
-  engine.exec_driver_sql("INSERT INTO users(user_id, name) VALUES(%(user_id)s, %(name)s)",[{"user_id":user_id,"name":name}])
- # return render_template("index.html")
+  g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
+
+
 
 if __name__ == "__main__":
   import click
