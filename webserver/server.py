@@ -59,9 +59,14 @@ CURRENT_USER_ID = None
 # add user to database
 @app.route('/choose_user', methods=['POST'])
 def choose_user():
-  CURRENT_USER_ID = int(g.conn.execute("SELECT user-id FROM user WHERE name = %s", username))
-  return redirect('/')
+  cursor = g.conn.execute("SELECT user-id FROM user WHERE name = %s", username)
+  user_ids = []
+  for result in cursor:
+    names.append(result['user_id'])  # can also be accessed using result[0]
+  cursor.close()
 
+  CURRENT_USER_ID = int(user_ids[0])
+  return redirect('/')
 
 
 '''
@@ -153,8 +158,14 @@ def constants():
 # add user to database
 @app.route('/add_user', methods=['POST'])
 def add_user():
-  user_id = int(g.conn.execute("SELECT MAX(user_id) FROM users")[0]) + 1
-  name = request.form['name']
+    
+  cursor = g.conn.execute("SELECT MAX(user_id) FROM users")
+  user_ids = []
+  for result in cursor:
+    names.append(result['user_id'])  # can also be accessed using result[0]
+  cursor.close()
+  
+  user_id = int(user_id[0]) + 1
   g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
 
