@@ -97,7 +97,7 @@ def index():
 
   context = dict(data = names)
 
-  return render_template("index.html", **context)
+  return render_template("index.html", **context, CURRENT_USER_ID)
 
 # localhost:8111/index.html
 @app.route('/index.html')
