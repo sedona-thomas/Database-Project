@@ -56,13 +56,13 @@ def teardown_request(exception):
 
 CURRENT_USER_ID = None
 
-# add user to database
+# select a user from the database
 @app.route('/choose_user', methods=['POST'])
 def choose_user():
-  cursor = g.conn.execute("SELECT user-id FROM user WHERE name = %s", username)
+  cursor = g.conn.execute("SELECT user_id FROM users WHERE name = %s", username)
   user_ids = []
   for result in cursor:
-    names.append(result['user_id'])  # can also be accessed using result[0]
+    user_ids.append(result['user_id'])  # can also be accessed using result[0]
   cursor.close()
 
   CURRENT_USER_ID = int(user_ids[0])
@@ -162,11 +162,11 @@ def add_user():
   cursor = g.conn.execute("SELECT MAX(user_id) FROM users")
   user_ids = []
   for result in cursor:
-    names.append(result['user_id'])  # can also be accessed using result[0]
+    user_ids.append(result['user_id'])  # can also be accessed using result[0]
   cursor.close()
   
   user_id = int(user_id[0]) + 1
-  g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
+  engine.execute(str("""INSERT INTO users(user_id, name) VALUES (%s, %s);""").format(user_id,name))
   return redirect('/')
 
 
