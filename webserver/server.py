@@ -59,6 +59,8 @@ CURRENT_USER_ID = None
 # select a user from the database
 @app.route('/choose_user', methods=['POST'])
 def choose_user():
+  
+  username = request.form['username']
   cursor = g.conn.execute("SELECT user_id FROM users WHERE name = %s", username)
   user_ids = []
   for result in cursor:
@@ -67,6 +69,7 @@ def choose_user():
 
   CURRENT_USER_ID = int(user_ids[0])
   return redirect('/')
+
 
 
 '''
