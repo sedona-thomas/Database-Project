@@ -159,21 +159,24 @@ def constants():
 @app.route('/add_user', methods=['POST'])
 def add_user():
     
-  cursor = g.conn.execute("SELECT MAX(user_id) FROM users")
+  cursor = g.conn.execute("SELECT MAX(user_id) as max FROM users")
   user_ids = []
   for result in cursor:
-    user_ids.append(result['user_id'])  # can also be accessed using result[0]
+    print("user_id: ",result['max'])
+    user_ids.append(result['max'])  # can also be accessed using result[0]
   cursor.close()
   
-  user_id = int(user_id[0]) + 1
+  user_id = int(user_ids[0]) + 1
 
   print(user_id)
-  print(name)
+  print(request.args['name'])
+  name = request.args['name']
   
-  command = "INSERT INTO users(user_id, name) VALUES (%s, %s);").format(user_id, name)
-  engine.execute(command)
+ # command = """INSERT INTO users(user_id, name) VALUES (%s, %s)""".format(user_id, name)
+ # engine.execute(command)
+  engine.exec_driver_sql("INSERT INTO users(user_id, name) VALUES(%(user_id)s, %(name)s)",[{"user_id":user_id,"name":name}])
+ # return render_template("index.html")
   return redirect('/')
-
 
 if __name__ == "__main__":
   import click
