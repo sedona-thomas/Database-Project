@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html> 
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <title>Search Results</title>
+        <link href="index.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+
+        <h2 align="center">Search Results</h2>
+        
+        <div>
+            {% for n in data %}
+            <div>{{n}}</div>
+            {% endfor %}
+        </div>
+
+    </body>
+
+</html>

@@ -165,6 +165,19 @@ def constants():
   return render_template("constants.html", **context)
 
 
+
+
+@app.route('/search_results')
+def search_results():
+    cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROm package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'])
+    data = []
+    for result in cursor:
+        data.append(result)
+    cursor.close()
+    context = dict(data = data)
+    return render_template("search_results.html", **context)
+
+
 '''
     Add Information to Database
 '''
