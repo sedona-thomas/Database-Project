@@ -104,7 +104,7 @@ def other_index():
 # localhost:8111/packages
 @app.route('/packages')
 def packages():
-  cursor = g.conn.execute("SELECT * FROM packages")
+  cursor = g.conn.execute("SELECT * FROM package")
   data = []
   for result in cursor:
     data.append(result)
@@ -115,7 +115,7 @@ def packages():
 # localhost:8111/modules
 @app.route('/modules')
 def modules():
-  cursor = g.conn.execute("SELECT * FROM modules")
+  cursor = g.conn.execute("SELECT * FROM module")
   data = []
   for result in cursor:
     data.append(result)
@@ -126,7 +126,7 @@ def modules():
 # localhost:8111/methods
 @app.route('/methods')
 def methods():
-  cursor = g.conn.execute("SELECT * FROM methods")
+  cursor = g.conn.execute("SELECT * FROM method")
   data = []
   for result in cursor:
     data.append(result)
@@ -137,7 +137,7 @@ def methods():
 # localhost:8111/constants
 @app.route('/constants')
 def constants():
-  cursor = g.conn.execute("SELECT * FROM constants")
+  cursor = g.conn.execute("SELECT * FROM constant")
   data = []
   for result in cursor:
     data.append(result)
@@ -153,9 +153,9 @@ def constants():
 # add user to database
 @app.route('/add_user', methods=['POST'])
 def add_user():
-  user_id = int(g.conn.execute("SELECT MAX(user-id) FROM user")) + 1
+  user_id = int(g.conn.execute("SELECT MAX(user_id) FROM users")[0]) + 1
   name = request.form['name']
-  g.conn.execute('INSERT INTO user(user-id, name) VALUES (%s, %s)', user_id, name)
+  g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
 
 
