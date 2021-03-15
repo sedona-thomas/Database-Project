@@ -166,7 +166,7 @@ def constants():
 
 
 
-
+# currently gives filepath for given package or module
 @app.route('/search_results', methods=['POST'])
 def search_results():
     cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROM package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'],request.form['code'])
@@ -177,6 +177,17 @@ def search_results():
     context = dict(data = data)
     return render_template("search_results.html", **context)
 
+# looks up by keyword and selected type of thing
+@app.route('/keyword_results',methods=['POST'])
+def keyword_results():
+	command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'],request.form['type_name']))
+	cursor = g.conn.execute(command)
+	data = []
+	for result in cursor:
+		data.append(result)
+	cursor.close()
+	context = dict(data = data)
+	return render_template("keyword_results.html", **context)
 
 '''
     Add Information to Database
