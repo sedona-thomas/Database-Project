@@ -2,32 +2,41 @@
 <!--index.html: navigation page-->
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    <title>Navigation</title>
-    <link href="index.css" rel="stylesheet" type="text/css">
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">-->
+    <title>Python Docs Meandering: Home</title>
+    <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
 </head>
 
 <body>
-  <h1>Navigation</h1>
+   <header>
+   <nav>
+      <ul>
+       <li><a class="active" href="">Home</a>
+       <li><a href="packages">Packages</a>
+       <li><a href="modules">Modules</a>
+       <li><a href="methods">Methods</a>
+       <li><a href="constants">Constants</a>
+      </ul>
+    </nav>
+  </header>
+  <h1>Welcome to Python Docs Meandering!</h1>
     
-  Current user: <div>{{username}}</div>
+  <i>Current user:</i> <div>{{username}}</div>
     
-  <h1>Choose User</h1>
+  <h4>Choose User</h4>
     <form method="POST" action="/choose_user">
     <p>Username: <input type="text" name="username"> <input type="submit" value="Choose"></p>
     </form>
     
-    <p><a href="packages">Go to packages</a></p>
-    <p><a href="modules">Go to modules</a></p>
-    <p><a href="methods">Go to methods</a></p>
-    <p><a href="constants">Go to constants</a></p>
+    <form method="POST" action="/add_user">
+    <p>New user: <input type="text" name="name"> <input type="submit" value="Add"></p>
+    </form>
 
   <h1>Search up something!</h1>
   <form method="POST" action="/search_results">
 	<p>Look up something: <input type="text" name="code"> <input type="submit" value="Go"></p>
     </form>
 
-<h1> Search by keyword!</h1>
 <form method="POST" action="/keyword_results">
 <p>Look up by keyword: 
 <select name="type_name" id="type_name">
@@ -37,11 +46,6 @@
 	<option value="module">Module</option>
 <input type="text" name="keyword"> <input type="submit" value="Go"></p>
 </form>
-
-  <h1>Add New User</h1>
-    <form method="POST" action="/add_user">
-    <p>Add yourself as a user: <input type="text" name="name"> <input type="submit" value="Add"></p>
-    </form>
 
 </body>
 </html>
