@@ -166,7 +166,12 @@ def add_user():
   cursor.close()
   
   user_id = int(user_id[0]) + 1
-  engine.execute(str("""INSERT INTO users(user_id, name) VALUES (%s, %s);""").format(user_id,name))
+
+  print(user_id)
+  print(name)
+  
+  command = "INSERT INTO users(user_id, name) VALUES (%s, %s);").format(user_id, name)
+  engine.execute(command)
   return redirect('/')
 
 
