@@ -95,9 +95,9 @@ def index():
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
 
-  context = dict(data = names)
+  context = {"data": names, "CURRENT_USER_ID": CURRENT_USER_ID}
 
-  return render_template("index.html", **context, CURRENT_USER_ID)
+  return render_template("index.html", **context)
 
 # localhost:8111/index.html
 @app.route('/index.html')
