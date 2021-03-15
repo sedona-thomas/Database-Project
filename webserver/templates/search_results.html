@@ -11,9 +11,14 @@
 
         <h2 align="center">Search Results</h2>
         
+        <table>
         <div>
             {% for n in data %}
-            <div>{{n}}</div>
+                <tr>
+                {% for x in n %}
+                <th><div>{{x}}</div></th>
+                {% endfor %}
+                </tr>
             {% endfor %}
         </div>
 
