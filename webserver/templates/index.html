@@ -10,6 +10,14 @@
 <body>
   <h1>Navigation</h1>
     
+  <div>{{data}}</div>
+
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+    
   <h1>Choose User</h1>
     <form method="POST" action="/choose_user">
     <p>Username: <input type="text" name="username"> <input type="submit" value="Choose"></p>
