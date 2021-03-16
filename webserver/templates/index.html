@@ -39,15 +39,30 @@
 
 <form method="POST" action="/keyword_results">
 <p>Look up by keyword: 
-<select name="search_type" id="type_name">
-	<option value="all">All</option>
-	<option value="favorites">Favorites</option>
 <select name="type_name" id="type_name">
 	<option value="method">Method</option>
 	<option value="constant">Constant</option>
 	<option value="module">Module</option>
 	<option value="package">Package</option>
 <input type="text" name="keyword"> <input type="submit" value="Go"></p>
+</form>
+	
+<form method="POST" action="/favorite_results">
+<p>Look up your favorites by keyword: 
+<select name="type_name" id="type_name">
+	<option value="method">Method</option>
+	<option value="constant">Constant</option>
+	<option value="module">Module</option>
+<input type="text" name="keyword"> <input type="submit" value="Go"></p>
+</form>
+	
+<form method="POST" action="/add_favorite">
+<p>Add favorite by name: 
+<select name="type_name" id="type_name">
+	<option value="method">Method</option>
+	<option value="constant">Constant</option>
+	<option value="module">Module</option>
+<input type="text" name="name"> <input type="submit" value="Go"></p>
 </form>
 
 </body>
