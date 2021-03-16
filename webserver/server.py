@@ -180,14 +180,30 @@ def search_results():
 # looks up by keyword and selected type of thing
 @app.route('/keyword_results',methods=['POST'])
 def keyword_results():
-	command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'],request.form['type_name']))
-	cursor = g.conn.execute(command)
-	data = []
-	for result in cursor:
-		data.append(result)
-	cursor.close()
-	context = dict(data = data)
+	if request.form['search_type'] == "all":
+		command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'],request.form['type_name']))
+		cursor = g.conn.execute(command)
+		data = []
+		for result in cursor:
+			data.append(result)
+		cursor.close()
+		context = dict(data = data)
+	elif request.form['search_type'] == "favorites":
+		if request.form.['type_name'] == 'package':
+			context = {"data": None, "CURRENT_USER_ID": CURRENT_USER_ID, "username": username}
+			return render_template("index.html", **context)
+		#command below worked as intended
+		#SELECT method.* FROM method, method_keywords, method_favorite WHERE ('equal' = method_keywords.keyword) AND (method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = 1)
+		command = text("SELECT {2}.* FROM {2}, {2}_keywords, {2}_favorite WHERE ({1} = {2}_keywords.keyword) AND ({2}_keywords.name = {2}.name) AND ({2}.name = {2}_favorite.{2}_name) AND (user_id = {0})".format(CURRENT_USER_ID, request.form['keyword'], request.form['type_name']))
+		cursor = g.conn.execute(command)
+		data = []
+		for result in cursor:
+			data.append(result)
+		cursor.close()
+		context = dict(data = data)
+		
 	return render_template("keyword_results.html", **context)
+
 
 '''
     Add Information to Database
