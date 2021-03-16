@@ -1,28 +1,25 @@
-<!DOCTYPE html>
+<!--Sedona Thomas and Jessica Kuleshov-->
+<!--search_results.html-->
 <html> 
+<head>
+  <title>Search Results</title>
+  <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
+</head>
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <title>Search Results</title>
-        <link href="index.css" rel="stylesheet" type="text/css">
-    </head>
+<body>
+  <h2 align="center">{{title}}</h2>
 
-    <body>
+  <table>
+    <div>
+      {% for n in data %}
+        <tr>
+          {% for x in n %}
+            <th><div>{{x}}</div></th>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </div>
+  </table>
 
-        <h2 align="center">{{title}}</h2>
-        
-        <table>
-        <div>
-            {% for n in data %}
-                <tr>
-                {% for x in n %}
-                <th><div>{{x}}</div></th>
-                {% endfor %}
-                </tr>
-            {% endfor %}
-        </div>
-	</table>
-
-    </body>
-
+</body>
 </html>
