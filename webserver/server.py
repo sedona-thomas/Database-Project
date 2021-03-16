@@ -8,12 +8,11 @@ Go to http://localhost:8111 in your browser.
 A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
-import os
-  # accessible as a variable in index.html:
+import os 
+# accessible as a variable in index.html:
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
-import sql_methods # app specific methods in sql_methods.py
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -21,6 +20,10 @@ app = Flask(__name__, template_folder=tmpl_dir)
 # postgresql://USER:PASSWORD@34.73.36.248/project1
 DATABASEURI = "postgresql://jjk2235:512791@34.73.36.248/project1"
 engine = create_engine(DATABASEURI)
+
+'''
+    Main
+'''
 
 @app.before_request
 def before_request():
@@ -48,8 +51,6 @@ def teardown_request(exception):
   except Exception as e:
     pass
 
-
-
 '''
     User Information
 '''
@@ -58,23 +59,19 @@ CURRENT_USER_ID = None
 
 # select a user from the database
 @app.route('/choose_user', methods=['POST'])
-def choose_user():
-  
+def choose_user():  
   username = request.form['username']
   cursor = g.conn.execute("SELECT user_id FROM users WHERE name = %s", username)
   user_ids = []
   for result in cursor:
     user_ids.append(result['user_id'])  # can also be accessed using result[0]
   cursor.close()
-  
   global CURRENT_USER_ID
   CURRENT_USER_ID = int(user_ids[0])
   return redirect('/')
 
-
-
 '''
-    Navigation
+    Home
 '''
 
 # localhost:8111/
@@ -88,6 +85,8 @@ def index():
   See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
   """
   
+  '''
+  # delete if this section doesnt mess up the server
   print(request.args)
 
   cursor = g.conn.execute("SELECT name FROM test")
@@ -95,6 +94,7 @@ def index():
   for result in cursor:
     names.append(result['name'])  # can also be accessed using result[0]
   cursor.close()
+  '''
   
   if CURRENT_USER_ID == None:
     username = None
@@ -105,16 +105,18 @@ def index():
       username.append(result['name'])  # can also be accessed using result[0]
     cursor.close()
     username = username[0]
-
-  context = {"data": names, "CURRENT_USER_ID": CURRENT_USER_ID, "username": username}
+  context = {"CURRENT_USER_ID": CURRENT_USER_ID, "username": username}
+  
+  # delete if above section is deleted
+  #context["data"] = names
 
   return render_template("index.html", **context)
 
 # localhost:8111/index.html
+# equivalent to localhost:8111/
 @app.route('/index.html')
 def other_index():
-    return index()
-
+  return index()
 
 '''
     Database Pages
@@ -164,45 +166,48 @@ def constants():
   context = dict(data = data)
   return render_template("constants.html", **context)
 
-
+'''
+    Searches
+'''
 
 # currently gives filepath for given package or module
 @app.route('/search_results', methods=['POST'])
 def search_results():
-    cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROM package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'],request.form['code'])
-    data = []
-    for result in cursor:
-        data.append(result)
-    cursor.close()
-    context = dict(data = data)
-    return render_template("search_results.html", **context)
+  cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROM package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'],request.form['code'])
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data)
+  context["title"] = "Github link(s) for {}".format(request.form['code'])
+  return render_template("search_results.html", **context)
 
 # looks up by keyword and selected type of thing
 @app.route('/keyword_results',methods=['POST'])
 def keyword_results():
-	command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'],request.form['type_name']))
-	cursor = g.conn.execute(command)
-	data = []
-	for result in cursor:
-		data.append(result)
-	cursor.close()
-	context = dict(data = data)
-	return render_template("keyword_results.html", **context)
+  command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'], request.form['type_name']))
+  cursor = g.conn.execute(command)
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data)
+  context["title"] = "Searched {} from {}".format(request.form['keyword'], request.form['type_name'])
+  return render_template("keyword_results.html", **context)
 
 # looks up by keyword and selected type of thing in favorites
 @app.route('/favorite_results',methods=['POST'])
 def favorite_results():
-	#command below worked as intended
-	#SELECT method.* FROM method, method_keywords, method_favorite WHERE ('equal' = method_keywords.keyword) AND (method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = 1)
-	command = text("SELECT {2}.* FROM {2}, {2}_keywords, {2}_favorite WHERE ({1} = {2}_keywords.keyword) AND ({2}_keywords.name = {2}.name) AND ({2}.name = {2}_favorite.{2}_name) AND (user_id = {0})".format(CURRENT_USER_ID, request.form['keyword'], request.form['type_name']))
-	cursor = g.conn.execute(command)
-	data = []
-	for result in cursor:
-		data.append(result)
-	cursor.close()
-	context = dict(data = data)	
-	return render_template("keyword_results.html", **context)
-
+  #command below worked as intended
+  #SELECT method.* FROM method, method_keywords, method_favorite WHERE ('equal' = method_keywords.keyword) AND (method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = 1)
+  command = text("SELECT {2}.* FROM {2}, {2}_keywords, {2}_favorite WHERE ({1} = {2}_keywords.keyword) AND ({2}_keywords.name = {2}.name) AND ({2}.name = {2}_favorite.{2}_name) AND (user_id = {0})".format(CURRENT_USER_ID, request.form['keyword'], request.form['type_name']))
+  cursor = g.conn.execute(command)
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data)	
+  return render_template("keyword_results.html", **context)
 
 '''
     Add Information to Database
@@ -211,16 +216,13 @@ def favorite_results():
 # add user to database
 @app.route('/add_user', methods=['POST'])
 def add_user():
-    
   cursor = g.conn.execute("SELECT MAX(user_id) as max FROM users")
   user_ids = []
   for result in cursor:
-    user_ids.append(result['max'])  # can also be accessed using result[0]
+    user_ids.append(result['max'])
   cursor.close()
-  
   user_id = int(user_ids[0]) + 1
   name = request.form['name']
-  
   g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
 
@@ -231,9 +233,6 @@ def add_favorite():
   #INSERT INTO module_favorite(user_id, module_name) VALUES (1, 'numpy')
   g.conn.execute('INSERT INTO %s_favorite(user_id, %s_name) VALUES (%s, %s)', request.form['type_name'], request.form['type_name'], CURRENT_USER_ID, request.form['name'])
   return redirect('/')
-
-
-
 
 if __name__ == "__main__":
   import click
@@ -258,62 +257,3 @@ if __name__ == "__main__":
     app.run(host=HOST, port=PORT, debug=debug, threaded=threaded)
 
   run()
-
-
-
-
-'''
-    Miscellaneous
-'''
-
-# @app.route("/foobar/", methods=["POST", "GET"])
-# see for routing: https://flask.palletsprojects.com/en/1.1.x/quickstart/#routing
-# see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
-
-'''
-# localhost:8111/another_page
-@app.route('/another_page')
-def another_page():
-  return render_template("another_page.html")
-'''
-
-'''
-@app.route('/login')
-def login():
-    abort(401)
-    this_is_never_executed()
-'''
-
-'''
-# execute SQL command in database
-engine.execute("""CREATE TABLE IF NOT EXISTS test (
-  id serial,
-  name text
-);""")
-engine.execute("""INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace');""")
-'''
-
-'''
-# localhost:8111/
-@app.route('/')
-def index():
-  """
-  request is a special object that Flask provides to access web request information:
-      request.method:   "GET" or "POST"
-      request.form:     if the browser submitted a form, this contains the data in the form
-      request.args:     dictionary of URL arguments, e.g., {a:1, b:2} for http://localhost?a=1&b=2
-  See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
-  """
-  
-  print(request.args)
-
-  cursor = g.conn.execute("SELECT name FROM test")
-  names = []
-  for result in cursor:
-    names.append(result['name'])  # can also be accessed using result[0]
-  cursor.close()
-
-  context = dict(data = names)
-
-  return render_template("index.html", **context)
-'''
