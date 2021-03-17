@@ -1,0 +1,37 @@
+<!--Jessica Kuleshov-->
+<!--about_you.html: -->
+<html> 
+<head>
+  <title>About You</title>
+  <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
+</head>	
+
+<body>
+   <header>
+   <nav>
+      <ul>
+       <li><a href="index.html">Home</a>
+       <li><a href="packages">Packages</a>
+       <li><a href="modules">Modules</a>
+       <li><a href="methods">Methods</a>
+       <li><a href="constants">Constants</a>
+       <li><a class="active" href="about_you">About You</a>
+      </ul>
+    </nav>
+  </header>
+    
+  <h2 align="center">About You</h2>
+    <table>
+      <div>
+        {% for n in data %}
+          <tr>
+            {% for x in n %}
+              <th><div>{{x}}</div></th>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </div>
+    </table>
+
+</body>
+</html>
