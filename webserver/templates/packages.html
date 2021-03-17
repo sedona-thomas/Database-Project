@@ -29,10 +29,14 @@
         
         <table>
         <div>
-            {% for n in data %}
+            <tr>
+	    <th>Name</th>
+	    <th>Filepath</th>
+	    </tr>
+	    {% for n in data %}
                 <tr>
                 {% for x in n %}
-                <th><div>{{x}}</div></th>
+                <td><div>{{x}}</div></td>
                 {% endfor %}
                 </tr>
             {% endfor %}

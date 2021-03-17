@@ -25,15 +25,20 @@
         <h2 align="center">Constants</h2>
         
         <table>
-        <div>
-            {% for n in data %}
-                <tr>
-                {% for x in n %}
-                <th><div>{{x}}</div></th>
-                {% endfor %}
-                </tr>
+       	    <tr>
+	    <th>Name</th>
+	    <th>Type</th>
+	    <th>Value</th>
+	    <th>Output</th>
+	    </tr> 
+        {% for n in data %}
+            <tr>
+            {% for x in n %}
+            <td>{{x}}</td>
             {% endfor %}
-        </div>
+            </tr>
+         {% endfor %}
+
         </table>
 
     </body>

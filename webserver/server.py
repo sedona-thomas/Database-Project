@@ -200,7 +200,7 @@ def keyword_results():
 def favorite_results():
   #command below worked as intended
   #SELECT method.* FROM method, method_keywords, method_favorite WHERE ('equal' = method_keywords.keyword) AND (method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = 1)
-  command = text("SELECT {2}.* FROM {2}, {2}_keywords, {2}_favorite WHERE ({1} = {2}_keywords.keyword) AND ({2}_keywords.name = {2}.name) AND ({2}.name = {2}_favorite.{2}_name) AND (user_id = {0})".format(CURRENT_USER_ID, request.form['keyword'], request.form['type_name']))
+  command = text("SELECT {2}.* FROM {2}, {2}_keywords, {2}_favorite WHERE ('{1}' = {2}_keywords.keyword) AND ({2}_keywords.name = {2}.name) AND ({2}.name = {2}_favorite.{2}_name) AND (user_id = {0})".format(CURRENT_USER_ID, request.form['keyword'], request.form['type_name']))
   cursor = g.conn.execute(command)
   data = []
   for result in cursor:
@@ -226,12 +226,13 @@ def add_user():
   g.conn.execute('INSERT INTO users(user_id, name) VALUES (%s, %s)', user_id, name)
   return redirect('/')
 
-# add user to database
+# add favorites to database
 @app.route('/add_favorite', methods=['POST'])
 def add_favorite():
   #below command worked as intended
   #INSERT INTO module_favorite(user_id, module_name) VALUES (1, 'numpy')
-  g.conn.execute('INSERT INTO %s_favorite(user_id, %s_name) VALUES (%s, %s)', request.form['type_name'], request.form['type_name'], CURRENT_USER_ID, request.form['name'])
+  command = text("INSERT INTO {0}_favorite(user_id,{0}_name) VALUES({1},'{2}')".format(request.form['type_name'], CURRENT_USER_ID, request.form['name']))
+  g.conn.execute(command)
   return redirect('/')
 
 if __name__ == "__main__":
