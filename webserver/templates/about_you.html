@@ -21,12 +21,41 @@
   </header>
     
   <h2 align="center">About You</h2>
-    <table>
+   <h4 align="center">Favorite Methods</h4> 
+   <table>
       <div>
-        {% for n in data %}
+        {% for n in method_data %}
           <tr>
             {% for x in n %}
-              <th><div>{{x}}</div></th>
+              <td><div>{{x}}</div></td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </div>
+    </table>
+
+
+   <h4 align="center">Favorite Constants</h4> 
+   <table>
+      <div>
+        {% for n in constant_data %}
+          <tr>
+            {% for x in n %}
+              <td><div>{{x}}</div></td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </div>
+    </table>
+
+
+   <h4 align="center">Favorite Modules</h4> 
+   <table>
+      <div>
+        {% for n in module_data %}
+          <tr>
+            {% for x in n %}
+              <td><div>{{x}}</div></td>
             {% endfor %}
           </tr>
         {% endfor %}
