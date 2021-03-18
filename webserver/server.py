@@ -167,6 +167,7 @@ def constants():
   return render_template("constants.html", **context)
 
 # localhost:8111/about_you
+# "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'method' ORDER BY ORDINAL_POSITION"
 @app.route('/about_you')
 def about_you():
   command1 = text("SELECT DISTINCT method.* FROM method, method_keywords, method_favorite WHERE ((method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
