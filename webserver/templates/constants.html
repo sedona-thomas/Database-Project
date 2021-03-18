@@ -1,7 +1,6 @@
 <!--Jessica Kuleshov and Sedona Thomas-->
 <!--constants.html: -->
 
-<!DOCTYPE html>
 
 <html>
 <head>
@@ -25,20 +24,21 @@
         <h1 align="center">Constants</h1>
         
         <table>
-       	    <tr>
-	    <th>Name</th>
-	    <th>Type</th>
-	    <th>Value</th>
-	    <th>Output</th>
+       	<div> 
+	   <tr>
+	    <th><div>Name</div></th>
+	    <th><div>Type</div></th>
+	    <th><div>Value</div></th>
+	    <th><div>Output</div></th>
 	    </tr> 
         {% for n in data %}
             <tr>
             {% for x in n %}
-            <td>{{x}}</td>
+            <td><div>{{x}}</div></td>
             {% endfor %}
             </tr>
          {% endfor %}
-
+	<div>
         </table>
 
     </body>
