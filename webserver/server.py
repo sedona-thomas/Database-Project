@@ -233,6 +233,7 @@ def favorite_results():
     data.append(result)
   cursor.close()
   context = dict(data = data)	
+  context["title"] = "Searched favorites for {} from {}".format(request.form['keyword'], request.form['type_name'])
   return render_template("keyword_results.html", **context)
 
 '''
