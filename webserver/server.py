@@ -202,7 +202,7 @@ def search_results():
   cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROM package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'],request.form['code'])
   data = []
   for result in cursor:
-    data.append(result)
+    data.append("<a>" + str(result) + "</a>")
   cursor.close()
   context = dict(data = data)
   context["title"] = "Github link(s) for {}".format(request.form['code'])
