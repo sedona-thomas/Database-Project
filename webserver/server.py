@@ -169,12 +169,12 @@ def constants():
 # localhost:8111/about_you
 @app.route('/about_you')
 def about_you():
-  command1 = text("SELECT method.* FROM method, method_keywords, method_favorite WHERE ((method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
+  command1 = text("SELECT DISTINCT method.* FROM method, method_keywords, method_favorite WHERE ((method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
   cursor1 = g.conn.execute(command1)
   
-  command2 = text("SELECT constant.* FROM constant, constant_keywords, constant_favorite WHERE ((constant_keywords.name = constant.name) AND (constant.name = constant_favorite.constant_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
+  command2 = text("SELECT DISTINCT constant.* FROM constant, constant_keywords, constant_favorite WHERE ((constant_keywords.name = constant.name) AND (constant.name = constant_favorite.constant_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
   cursor2 = g.conn.execute(command2)
-  command4 = text("SELECT module.* FROM module, module_keywords, module_favorite WHERE ((module_keywords.name = module.name) AND (module.name = module_favorite.module_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
+  command4 = text("SELECT DISTINCT module.* FROM module, module_keywords, module_favorite WHERE ((module_keywords.name = module.name) AND (module.name = module_favorite.module_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
   cursor4 = g.conn.execute(command4)
   method_data = []
   constant_data = []
