@@ -270,8 +270,8 @@ def add_favorite():
 # add user to database
 @app.route('/add_user_code', methods=['POST'])
 def add_user_code():
-  g.conn.execute('INSERT INTO user_code(filepath, user_id) VALUES (%s, %s)', request.form['filename'], CURRENT_USER_ID)
-  g.conn.execute('INSERT INTO code(filepath, filename, github_link) VALUES (%s, %s, %s)', request.form['filename'], request.form['filename'], request.form['github_link'])
+  g.conn.execute('INSERT INTO user_code(filepath, user_id) VALUES (%s, %s)', request.form['filepath'], CURRENT_USER_ID)
+  g.conn.execute('INSERT INTO code(filepath, filename, github_link) VALUES (%s, %s, %s)', request.form['filepath'], request.form['filename'], request.form['github_link'])
   return redirect('/')
 
 if __name__ == "__main__":
