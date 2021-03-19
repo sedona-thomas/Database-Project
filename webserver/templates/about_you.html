@@ -61,6 +61,19 @@
         {% endfor %}
       </div>
     </table>
+  
+   <h4 align="center">Your Code</h4> 
+   <table>
+      <div>
+        {% for n in module_data %}
+          <tr>
+            {% for x in n %}
+              <td><div>{{x}}</div></td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </div>
+    </table>
 
 </body>
 </html>
