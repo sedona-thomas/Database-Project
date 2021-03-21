@@ -226,6 +226,19 @@ def keyword_results():
   context["title"] = "Searched {} from {}".format(request.form['keyword'], request.form['type_name'])
   return render_template("keyword_results.html", **context)
 
+# looks up by related keywords and selected type of thing
+@app.route('/related_keyword_search',methods=['POST'])
+def related_keyword_search():
+  #command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ('{0}' = {1}_keywords.keyword) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'], request.form['type_name']))
+  cursor = g.conn.execute(command)
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data)
+  context["title"] = "Searched {} from {}".format(request.form['keyword'], request.form['type_name'])
+  return render_template("keyword_results.html", **context)
+
 # looks up by keyword and selected type of thing in favorites
 @app.route('/favorite_results',methods=['POST'])
 def favorite_results():
