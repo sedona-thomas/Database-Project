@@ -166,6 +166,45 @@ def constants():
   context = dict(data = data)
   return render_template("constants.html", **context)
 
+# localhost:8111/package_containment
+@app.route('/package_containment', methods=["POST"])
+def package_containment():
+  command = text("SELECT DISTINCT module.* FROM module, package_module_containment pmc WHERE module.name = pmc.module_name AND pmc.package_name = '{0}'".format(request.form['package_name']));
+  cursor = g.conn.execute(command)
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data, title = request.form['package_name'])
+  return render_template("search_results.html", **context)
+
+# localhost:8111/module_containment
+@app.route('/module_containment', methods=["POST"])
+def module_containment():
+  command1 = text("SELECT DISTINCT method.* FROM method, module_method_containment mmc WHERE method.name = mmc.method_name AND mmc.module_name = '{0}'".format(request.form['module_name']))
+  cursor1 = g.conn.execute(command1)
+  method_data = []
+  for result in cursor1:
+    method_data.append(result)
+  cursor1.close()
+  command2 = text("SELECT DISTINCT constant.* FROM constant, module_constant_containment mcc WHERE constant.name = mcc.constant_name AND mcc.module_name = '{0}'".format(request.form['module_name']))
+  cursor2 = g.conn.execute(command2)
+  constant_data = []
+  for result in cursor2:
+    constant_data.append(result)
+  cursor2.close()
+  command3 = text("SELECT DISTINCT imported_module_name FROM module_dependencies WHERE module_dependencies.module_name = '{0}'".format(request.form['module_name']))
+  cursor3 = g.conn.execute(command3)
+  dependency_data = []
+  for result in cursor3:
+    dependency_data.append(result)
+  cursor3.close()
+  title1 = "Methods contained within {0}".format(request.form['module_name'])
+  title2 = "Constants contained within {0}".format(request.form['module_name'])
+  context = dict(method_data = method_data, constant_data = constant_data, dependency_data = dependency_data, title1 = title1, title2 = title2)
+  return render_template("module_results.html", **context)
+
+
 # localhost:8111/about_you
 # "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'method' ORDER BY ORDINAL_POSITION"
 @app.route('/about_you')
@@ -176,7 +215,7 @@ def about_you():
   cursor2 = g.conn.execute(command2)
   command4 = text("SELECT DISTINCT module.* FROM module, module_keywords, module_favorite WHERE ((module_keywords.name = module.name) AND (module.name = module_favorite.module_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
   cursor4 = g.conn.execute(command4)
-  command5 = text("SELECT * FROM user_code NATURAL JOIN code WHERE (user_id = {0}))".format(CURRENT_USER_ID))
+  command5 = text("SELECT * FROM user_code NATURAL JOIN code WHERE (user_id = {0})".format(CURRENT_USER_ID))
   cursor5 = g.conn.execute(command5)
   method_data = []
   constant_data = []
@@ -189,7 +228,7 @@ def about_you():
   for result in cursor4:
     module_data.append(result)
   for result in cursor5:
-    module_data.append(result)
+    user_code.append(result)
   cursor1.close()
   cursor2.close()
   cursor4.close()
@@ -231,7 +270,7 @@ def keyword_results():
 def related_keyword_search():
   # SELECT similar_keywords.keyword1 FROM similar_keywords WHERE similar_keywords.keyword1 = 'e' OR similar_keywords.keyword2 = 'e' UNION SELECT similar_keywords.keyword2 FROM similar_keywords WHERE similar_keywords.keyword1 = 'e' OR similar_keywords.keyword2 = 'e';
   # SELECT similar_keywords.keyword1 FROM similar_keywords WHERE similar_keywords.keyword1 = {0} OR similar_keywords.keyword2 = {0} UNION SELECT similar_keywords.keyword2 FROM similar_keywords WHERE similar_keywords.keyword1 = {0} OR similar_keywords.keyword2 = {0}
-  command = text("SELECT {1}.* FROM {1}, {1}_keywords WHERE ({1}_keywords.keyword in SELECT similar_keywords.keyword1 FROM similar_keywords WHERE similar_keywords.keyword1 = {0} OR similar_keywords.keyword2 = {0} UNION SELECT similar_keywords.keyword2 FROM similar_keywords WHERE similar_keywords.keyword1 = {0} OR similar_keywords.keyword2 = {0}) AND ({1}_keywords.name = {1}.name)".format(request.form['keyword'], request.form['type_name']))
+  command = text("SELECT DISTINCT {1}.* FROM {1}, {1}_keywords WHERE ({1}_keywords.keyword in (SELECT similar_keywords.keyword1 FROM similar_keywords WHERE similar_keywords.keyword1 = '{0}' OR similar_keywords.keyword2 = '{0}' UNION SELECT similar_keywords.keyword2 FROM similar_keywords WHERE similar_keywords.keyword1 = '{0}' OR similar_keywords.keyword2 = '{0}') AND ({1}_keywords.name = {1}.name))".format(request.form['keyword'], request.form['type_name']))
   cursor = g.conn.execute(command)
   data = []
   for result in cursor:
@@ -282,11 +321,18 @@ def add_favorite():
   g.conn.execute(command)
   return redirect('/')
 
-# add user to database
+# add user code to database
 @app.route('/add_user_code', methods=['POST'])
 def add_user_code():
-  g.conn.execute('INSERT INTO user_code(filepath, user_id) VALUES (%s, %s)', request.form['filepath'], CURRENT_USER_ID)
+  cursor = g.conn.execute("SELECT MAX(author_id) as max FROM author")
+  author_ids = []
+  for result in cursor:
+    author_ids.append(result['max'])
+  cursor.close()
+  author_id = int(author_ids[0]) + 1
+  g.conn.execute('INSERT INTO author(author_id,name) VALUES (%s, %s)', author_id, CURRENT_USER_ID)
   g.conn.execute('INSERT INTO code(filepath, filename, github_link) VALUES (%s, %s, %s)', request.form['filepath'], request.form['filename'], request.form['github_link'])
+  g.conn.execute('INSERT INTO user_code(filepath, user_id) VALUES (%s, %s)', request.form['filepath'], CURRENT_USER_ID)
   return redirect('/')
 
 if __name__ == "__main__":

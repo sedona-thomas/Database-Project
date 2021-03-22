@@ -1,8 +1,8 @@
 <!--Jessica Kuleshov-->
-<!--about_you.html: -->
+<!--module_results.html: -->
 <html> 
 <head>
-  <title>About You</title>
+  <title>Module Results</title>
   <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
 </head>	
 
@@ -20,8 +20,7 @@
     </nav>
   </header>
     
-  <h2 align="center">About You</h2>
-   <h4 align="center">Favorite Methods</h4> 
+  <h2 align="center">{{ title1 }}</h2>
    <table>
       <div>
         {% for n in method_data %}
@@ -35,7 +34,7 @@
     </table>
 
 
-   <h4 align="center">Favorite Constants</h4> 
+  <h2 align="center">{{ title2 }}</h2>
    <table>
       <div>
         {% for n in constant_data %}
@@ -49,23 +48,10 @@
     </table>
 
 
-   <h4 align="center">Favorite Modules</h4> 
+  <h2 align="center">Module dependencies:</h2>
    <table>
       <div>
-        {% for n in module_data %}
-          <tr>
-            {% for x in n %}
-              <td><div>{{x}}</div></td>
-            {% endfor %}
-          </tr>
-        {% endfor %}
-      </div>
-    </table>
-  
-   <h4 align="center">Your Code</h4> 
-   <table>
-      <div>
-        {% for n in user_code %}
+        {% for n in dependency_data %}
           <tr>
             {% for x in n %}
               <td><div>{{x}}</div></td>

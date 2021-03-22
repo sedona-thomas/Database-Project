@@ -39,7 +39,7 @@
     </form>
 
     <form method="POST" action="/keyword_results">
-      <p>Search by related keywords: 
+      <p>Search by keyword: 
         <select name="type_name" id="type_name">
 	  <option value="method">Method</option>
 	  <option value="constant">Constant</option>
@@ -49,8 +49,8 @@
       </p>
     </form>
 
-    <form method="POST" action="/similar_keyword_search">
-      <p>Look up by keyword: 
+    <form method="POST" action="/related_keyword_search">
+      <p>Look for related keywords (by keyword): 
         <select name="type_name" id="type_name">
 	  <option value="method">Method</option>
 	  <option value="constant">Constant</option>
@@ -81,7 +81,7 @@
     </form>
 
     <form method="POST" action="/add_user_code">
-      <p>Add user code (filename, filepath, github link): 
+      <p>Add user code (filepath, filename, github link): 
         <input type="text" name="filepath"> 
         <input type="text" name="filename">
         <input type="text" name="github_link">
