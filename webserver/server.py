@@ -217,10 +217,13 @@ def about_you():
   cursor4 = g.conn.execute(command4)
   command5 = text("SELECT * FROM user_code NATURAL JOIN code WHERE (user_id = {0})".format(CURRENT_USER_ID))
   cursor5 = g.conn.execute(command5)
+  command6 = text("SELECT name FROM users WHERE user_id = {0}".format(CURRENT_USER_ID))
+  cursor6 = g.conn.execute(command6)
   method_data = []
   constant_data = []
   module_data = []
   user_code = []
+  usernames = []
   for result in cursor1:
     method_data.append(result)
   for result in cursor2:
@@ -230,11 +233,26 @@ def about_you():
   for result in cursor5:
     user_code.append(result)
   cursor1.close()
+  for result in cursor6:
+    usernames.append(result)
+  cursor6.close()
   cursor2.close()
   cursor4.close()
   cursor5.close()
-  context = dict(method_data=method_data, constant_data=constant_data, module_data=module_data, user_code=user_code)
+  username = usernames[0][0]
+  context = dict(username = username, method_data=method_data, constant_data=constant_data, module_data=module_data, user_code=user_code)
   return render_template("about_you.html", **context)
+
+# localhost:8111/contributors
+@app.route('/contributors')
+def contributors():
+  cursor = g.conn.execute("SELECT DISTINCT users.name FROM users WHERE users.user_id IN (SELECT contributor.user_id FROM contributor)")
+  data = []
+  for result in cursor:
+    data.append(result)
+  cursor.close()
+  context = dict(data = data)
+  return render_template("contributors.html", **context)
 
 '''
     Searches
@@ -246,11 +264,11 @@ def search_results():
   cursor = g.conn.execute("SELECT github_link FROM code WHERE filepath in (SELECT package.filepath FROM package WHERE package.name LIKE %s) OR filepath in (SELECT module.filepath FROM module WHERE module.name LIKE %s)",request.form['code'],request.form['code'])
   data = []
   for result in cursor:
-    data.append("<a>" + str(result) + "</a>")
+    data.append(str(result[0]))
   cursor.close()
   context = dict(data = data)
   context["title"] = "Github link(s) for {}".format(request.form['code'])
-  return render_template("search_results.html", **context)
+  return render_template("github_results.html", **context)
 
 # looks up by keyword and selected type of thing
 @app.route('/keyword_results',methods=['POST'])
@@ -324,13 +342,21 @@ def add_favorite():
 # add user code to database
 @app.route('/add_user_code', methods=['POST'])
 def add_user_code():
-  cursor = g.conn.execute("SELECT MAX(author_id) as max FROM author")
-  author_ids = []
+  
+  cursor = g.conn.execute("SELECT * FROM contributor where contributor.user_id = %s", CURRENT_USER_ID)
+  user_ids = []
   for result in cursor:
-    author_ids.append(result['max'])
-  cursor.close()
-  author_id = int(author_ids[0]) + 1
-  g.conn.execute('INSERT INTO author(author_id,name) VALUES (%s, %s)', author_id, CURRENT_USER_ID)
+    user_ids.append(result['user_id'])
+  cursor.close() 
+  if CURRENT_USER_ID not in user_ids:
+    cursor = g.conn.execute("SELECT MAX(author_id) as max FROM author")
+    author_ids = []
+    for result in cursor:
+      author_ids.append(result['max'])
+    cursor.close()
+    author_id = int(author_ids[0]) + 1
+    g.conn.execute('INSERT INTO author(author_id,name) VALUES (%s, %s)', author_id, CURRENT_USER_ID)
+    g.conn.execute('INSERT INTO contributor(author_id,user_id) VALUES (%s, %s)', author_id, CURRENT_USER_ID)
   g.conn.execute('INSERT INTO code(filepath, filename, github_link) VALUES (%s, %s, %s)', request.form['filepath'], request.form['filename'], request.form['github_link'])
   g.conn.execute('INSERT INTO user_code(filepath, user_id) VALUES (%s, %s)', request.form['filepath'], CURRENT_USER_ID)
   return redirect('/')

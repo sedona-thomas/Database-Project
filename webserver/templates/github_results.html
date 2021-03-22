@@ -1,14 +1,14 @@
 <!--Sedona Thomas and Jessica Kuleshov-->
-<!--keyword_results.html-->
+<!--search_results.html-->
 <html> 
 <head>
-  <title>Keyword Results</title>
+  <title>Search Results</title>
   <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
 </head>
 
 <body>
-   <header>
-   <nav>
+  <header>
+    <nav>
       <ul>
        <li><a href="index.html">Home</a>
        <li><a href="packages">Packages</a>
@@ -28,9 +28,7 @@
     <div>
       {% for n in data %}
         <tr>
-          {% for x in n %}
-            <th><div>{{x}}</div></th>
-          {% endfor %}
+            <th><div><a>{{n}}</a></div></th>
         </tr>
       {% endfor %}
     </div>

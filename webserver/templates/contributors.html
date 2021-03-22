@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Python Docs Meandering: Modules</title>
+    <title>Python Docs Meandering: Contributors</title>
     <link rel="stylesheet" href = "{{ url_for('static', filename='index.css') }}">
 </head>
 
@@ -14,26 +14,21 @@
       <ul>
        <li><a href="index.html">Home</a>
        <li><a href="packages">Packages</a>
-       <li><a class="active" href="modules">Modules</a>
+       <li><a href="modules">Modules</a>
        <li><a href="methods">Methods</a>
        <li><a href="constants">Constants</a>
-	<li><a href="about_you">About You</a>
-       <li><a href="contributors">Contributors</a>
+       <li><a href="about_you">About You</a>
+       <li><a class="active" href="contributors">Contributors</a>
       </ul>
     </nav>
   </header>
 
   <br><br><br><br>  
-        <h2 align="center">Modules</h2>  
-        <p>To find all methods and constants contained within a particular module, as well as dependencies, search here:</p>        
-    	<form method="POST" action="/module_containment">
-      	     <input type="text" name="module_name"> <input type="submit" value="Learn More"></p>
-        </form>
+        <h2 align="center">Contributors</h2>  
+        <p>A list of all of our wonderful contributors!</p>        
         <table>
         <div>
 	    <tr>
-	    <th>Name</th>
-	    <th>Filepath</th>
 	    </tr>
             {% for n in data %}
                 <tr>
