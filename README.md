@@ -1,6 +1,7 @@
 # Project 1 Part 3
 
 PostgreSQL account: jk2235
+
 Database Name: project1
 
 URL: 34.74.183.38:8111
