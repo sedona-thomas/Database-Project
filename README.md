@@ -13,11 +13,6 @@ There are tabs that display all packages, modules, methods, and constants in the
 
 We had intended to store the source code for all author and user code, but we modified it to store the github link instead so the user can see updated source code. We also decided to remove the history feature since it added an extra operation every time something is searched and you can already see your search history when you click on the text box which automatically displays previous searches from the browser. Important searches are also able to be stored in favorites and this is more selective since the user chooses and avoids saving searches that include spelling mistakes and unimportant searches.
 
- jjk2235 | author                      | table | jjk2235
- jjk2235 | code                        | table | jjk2235
- jjk2235 | contributor                 | table | jjk2235
-
-
 # Two of the web pages that require the most interesting database operations:
 
 The similar keyword search allows users to search for modules, methods, constants, and packages that are closely related to a specific keyword even if the specific data entry is not directly linked to the keyword they chose. The user only inputs from a drop down menu (modules, methods, constants, or packages) and specifies a keyword. The server then parses the query type and keyword name to find all tuples which contain the given keyword which requires a nested union query of all distinct keywords in the two columns then the outer search finds all distinct modules, methods, constants, or packages (the user specifies which) for each of the related keywords.
