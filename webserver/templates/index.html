@@ -39,6 +39,17 @@
     </form>
 
     <form method="POST" action="/keyword_results">
+      <p>Search by related keywords: 
+        <select name="type_name" id="type_name">
+	  <option value="method">Method</option>
+	  <option value="constant">Constant</option>
+	  <option value="module">Module</option>
+	  <option value="package">Package</option>
+        <input type="text" name="keyword"> <input type="submit" value="Go">
+      </p>
+    </form>
+
+    <form method="POST" action="/similar_keyword_search">
       <p>Look up by keyword: 
         <select name="type_name" id="type_name">
 	  <option value="method">Method</option>
