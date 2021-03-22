@@ -17,9 +17,6 @@ We had intended to store the source code for all author and user code, but we mo
  jjk2235 | code                        | table | jjk2235
  jjk2235 | contributor                 | table | jjk2235
 
- jjk2235 | module_dependencies         | table | jjk2235
- jjk2235 | package_module_containment  | table | jjk2235
-
 
 # Two of the web pages that require the most interesting database operations:
 
