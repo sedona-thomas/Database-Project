@@ -209,6 +209,8 @@ def module_containment():
 # "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'method' ORDER BY ORDINAL_POSITION"
 @app.route('/about_you')
 def about_you():
+  if CURRENT_USER_ID == None:
+    return "You are not logged in. Please return to the homepage and add yourself as a user or log in."
   command1 = text("SELECT DISTINCT method.* FROM method, method_keywords, method_favorite WHERE ((method_keywords.name = method.name) AND (method.name = method_favorite.method_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
   cursor1 = g.conn.execute(command1)
   command2 = text("SELECT DISTINCT constant.* FROM constant, constant_keywords, constant_favorite WHERE ((constant_keywords.name = constant.name) AND (constant.name = constant_favorite.constant_name) AND (user_id = {0}))".format(CURRENT_USER_ID))
