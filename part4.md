@@ -15,6 +15,8 @@ Trigger:
     *find new one (deleteing userid from things happens automatically since it is a primary key)
   
     upon insert into user_code add user to author and contributor if it doesnt exist
+    
+    any time something is connected to a keyword, it is added to the keywords table
   
 Array:
 
