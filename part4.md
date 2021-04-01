@@ -17,6 +17,8 @@ Trigger:
     upon insert into user_code add user to author and contributor if it doesnt exist
     
     any time something is connected to a keyword, it is added to the keywords table
+    
+    share notes with another user
   
 Array:
 
@@ -39,11 +41,9 @@ CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
 # Queries:
 
-  share notes with another user
+  INSERT INTO user_notes VALUES (1, 2);
   
-  add note page
-  
-  search note page
+  INSERT INTO notes VALUES (0, ROW('Note Title', 'This is the note body.'));
 
   SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0;
   
