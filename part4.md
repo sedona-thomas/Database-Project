@@ -42,6 +42,6 @@ CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
   SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0;
   
-  SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AND SELECT document @@ to_tsquery('str');
+  SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AND SELECT document @@ to_tsquery('str && char');
 
 
