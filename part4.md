@@ -24,7 +24,9 @@ Trigger:
 # Create statements:
 
 CREATE TYPE note_page AS (title VARCHAR(100), timestamp DATE NOT NULL DEFAULT CURRENT_DATE, body TEXT);
+
 CREATE TABLE user_notes (user_id int, note_id int PRIMARY KEY (user_id, note_id), FOREIGN KEY(user_id) REFERENCES users, FOREIGN KEY(not_id) REFERENCES notes);
+
 CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
 
