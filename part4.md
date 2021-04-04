@@ -1,14 +1,32 @@
 
+# Names and UNIs:
+Jessica Kuleshov - jjk2235
+Sedona Thomas - snt2127
+
+# PostgreSQL account:
+jjk2235
+
 
 # Add-Ons:
+    
+    
+Our first addition is that of a Composite "note_page" type. This type contains a page of notes that a User has written, as well as when it was written. That way, Users can keep notes about snippets of code, methods, constants, packages, etc. that they find interesting for future use. 
 
-Text attribute: notes page using note_page data type
-  
-    make search query for text attribute
+The second addition is a full-text search over the note_pages. This allows Users to see if they have written any notes about a particular subject - say they wish to see what notes they have about "hexdigits" - the full-text search looks in the body of each note_page and returns the title and body so the User can read what the note says.
+
+The final addition is that of a trigger that 
+
+
 
 Composite Type: note_page type
   
     CREATE TYPE note_page AS (title VARCHAR(100), timestamp DATE NOT NULL DEFAULT CURRENT_DATE, body TEXT);
+    
+
+    
+Text attribute: notes page using note_page data type
+  
+    make search query for text attribute
 
 Trigger:
 
@@ -53,6 +71,10 @@ SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AN
   
 SELECT n.title FROM notes AS n WHERE note_id = 0 AND 'str' = ANY(n.keywords);
 
-CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO contibutor(user_id, author_id) VALUES (user_id, SELECT max(a.author_id)+1 FROM author AS a); INSERT INTO author(author_id, name) VALUES (SELECT a.author_id FROM author AS a WHERE a.user_id = NEW.user_id, SELECT u.name FROM contributor AS c, users AS u WHERE c.user_id = NEW.user_id AND u.user_id = NEW.user_id); RETURN NEW; END; $BODY$ language plpgsql;
+CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO contributor(user_id, author_id) VALUES (user_id, SELECT max(a.author_id)+1 FROM author AS a); INSERT INTO author(author_id, name) VALUES (SELECT a.author_id FROM author AS a WHERE a.user_id = NEW.user_id, SELECT u.name FROM contributor AS c, users AS u WHERE c.user_id = NEW.user_id AND u.user_id = NEW.user_id); RETURN NEW; END; $BODY$ language plpgsql;
 
 CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger()
+
+# Notes:
+
+
