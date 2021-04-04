@@ -14,7 +14,7 @@ Our first addition is that of a Composite "note_page" type. This type contains a
 
 The second addition is a full-text search over the note_pages. This allows Users to see if they have written any notes about a particular subject - say they wish to see what notes they have about "hexdigits" - the full-text search looks in the body of each note_page and returns the title and body so the User can read what the note says.
 
-The final addition is that of a trigger that 
+The final addition is a trigger that, when user code is added into the user_code table, it automatically adds the user as an author and assigns them the next author-id in the author-id table, as well as adding them as a contributor, if they have not already contributed something.
 
 
 
