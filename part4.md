@@ -52,7 +52,7 @@ Array:
 
 CREATE TYPE note_page AS (title VARCHAR(100), timestamp DATE, keywords CHAR(500)[], body TEXT);
 
-CREATE TABLE user_notes (user_id int, note_id int PRIMARY KEY (user_id, note_id), FOREIGN KEY(user_id) REFERENCES users, FOREIGN KEY(not_id) REFERENCES notes);
+CREATE TABLE user_notes (user_id int, note_id int, PRIMARY KEY(user_id, note_id), FOREIGN KEY(user_id) REFERENCES users, FOREIGN KEY(not_id) REFERENCES notes);
 
 CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
