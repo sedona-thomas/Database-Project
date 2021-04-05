@@ -72,7 +72,7 @@ CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PR
 
 
 INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/johnBuffer/AntSimulator');
-INSERT INTO user_code VALUES ('github.com/johnBuffer/AntSimulator', 1);
+INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
 
 
