@@ -66,7 +66,7 @@ SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AN
   
 SELECT n.title FROM notes AS n WHERE note_id = 0 AND 'str' = ANY(n.keywords);
 
-CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT max(a.author_id)+1 FROM author AS a)) ON CONFLICT DO NOTHING; INSERT INTO author(author_id, name) VALUES ((SELECT a.author_id FROM author AS a WHERE a.user_id = NEW.user_id), (SELECT u.name FROM contributor AS c, users AS u WHERE c.user_id = NEW.user_id AND u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
+CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT max(a.author_id)+1 FROM author AS a)) ON CONFLICT DO NOTHING; INSERT INTO author(author_id, name) VALUES ((SELECT a.author_id FROM contributor AS c WHERE c.user_id = NEW.user_id), (SELECT u.name FROM contributor AS c, users AS u WHERE c.user_id = NEW.user_id AND u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
 
 CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
 
