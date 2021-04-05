@@ -58,7 +58,7 @@ CREATE TABLE user_notes (user_id int, note_id int, PRIMARY KEY (user_id, note_id
 
 INSERT INTO user_notes VALUES (1, 2);
   
-INSERT INTO notes VALUES (0, ROW('Note Title', '1-1-2021', 'This is the note body.'));
+INSERT INTO notes VALUES (0, ROW('Note Title', '1-1-2021', '{keyword}', 'This is the note body.'));
 
 SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0;
   
