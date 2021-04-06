@@ -30,7 +30,7 @@ CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INT
 
 CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
 
-INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 5);
+INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 6);
 
     This is the event that causes the trigger to fire. When ('johnBuffer/AntSimulator',5) is added, it indicates the filepath 'johnBuffer/AntSimulator', where it checks that the filepath is in the code table, and indicates the user_id 5. It then looks to see if this user_id is already an author (i.e. has an author_id associated with it) else it adds the next highest author_id and the name associated with the user_id (from the users table) to the author table. It then checks to see if the author_id and user_id are already associated in the contributor table, and if not adds the author_id and user_id as a row there as well.
 
