@@ -9,7 +9,7 @@
 3. Add-Ons:    
 
   Our first addition is that of a Composite "note_page" type. This type contains a title, a timestamp,
-  a list of keywords, and a text attribute containing the note. That way, Users can keep notes about 
+  an array of keywords, and a text attribute containing the note. That way, Users can keep notes about 
   snippets of code, methods, constants, packages, etc. that they find interesting for future use.
   This fits in with our general database schema because our database has a large focus on 
   personalized data per User, and having notes on various methods also allows for more customization
