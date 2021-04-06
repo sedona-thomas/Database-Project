@@ -1,40 +1,48 @@
 
-Names and UNIs:
+1. Names and UNIs:
   Jessica Kuleshov - jjk2235
   Sedona Thomas - snt2127
 
-PostgreSQL account:
+2. PostgreSQL account:
   jjk2235
 
-Add-Ons:    
+3. Add-Ons:    
 
-  Our first addition is that of a Composite "note_page" type. This type contains a page of notes 
-  that a User has written, as well as when it was written. That way, Users can keep notes about 
-  snippets of code, methods, constants, packages, etc. that they find interesting for future use. 
+  Our first addition is that of a Composite "note_page" type. This type contains a title, a timestamp,
+  a list of keywords, and a text attribute containing the note. That way, Users can keep notes about 
+  snippets of code, methods, constants, packages, etc. that they find interesting for future use.
+  This fits in with our general database schema because our database has a large focus on 
+  personalized data per User, and having notes on various methods also allows for more customization
+  on a User's part, along with already-existing features such as Favorites.
 
   The second addition is a full-text search over the note_pages. This allows Users to see if they 
   have written any notes about a particular subject - say they wish to see what notes they have 
   about "hexdigits" - the full-text search looks in the body of each note_page and returns the 
-  title and body so the User can read what the note says.
+  title and body so the User can read what the note says. This is important because Users sometimes
+  do not remember exactly what they titled their notes, so it can often be more useful to search
+  the body and title for phrases they expect to find. 
 
   The final addition is a trigger that, when user code is added into the user_code table, it 
   automatically adds the user as an author and assigns them the next author-id in the author-id 
   table, as well as adding them as a contributor, if they have not already contributed something.
+  This fits with our general design because it helps ensure that author_id's are properly assigned
+  to users in a correct order without having to make a function for it, and properly updates the
+  contributor table as well without manually doing so as well.
 
 
-Trigger:
+4. Trigger:
 
   INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 6);
 
     This is the event that causes the trigger to fire. When ('johnBuffer/AntSimulator',5) is added, 
     it indicates the filepath 'johnBuffer/AntSimulator', where it checks that the filepath is in the 
     code table, and indicates the user_id 5. It then looks to see if this user_id is already an author 
-    (i.e. has an author_id associated with it) else it adds the next highest author_id and the name 
-    associated with the user_id (from the users table) to the author table. It then checks to see if 
-    the author_id and user_id are already associated in the contributor table, and if not adds the 
-    author_id and user_id as a row there as well.
+    (i.e. has an author_id associated with it - in this case there isn't) else it adds the next highest 
+    author_id and the name associated with the user_id (from the users table) to the author table. It 
+    then checks to see if the author_id and user_id are already associated in the contributor table.
+    In this case it is not associated, so the trigger adds the author_id and user_id as a row there as well.
 
-Queries:
+5. Queries:
 
   SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 1;
 
