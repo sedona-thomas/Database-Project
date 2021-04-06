@@ -26,7 +26,7 @@ CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
 CREATE TABLE user_notes (user_id int, note_id int, PRIMARY KEY (user_id, note_id), FOREIGN KEY(user_id) REFERENCES users, FOREIGN KEY(not_id) REFERENCES notes);
 
-CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO author(author_id, name) VALUES ((SELECT max(a.author_id)+1 FROM author AS a), (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT a.author_id FROM author AS a WHERE a.name = (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
+CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO author(author_id, name) VALUES ((SELECT max(a.author_id)+1 FROM author AS a), (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT a.author_id FROM author AS a WHERE a.name = (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id))) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
 
 CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
 
