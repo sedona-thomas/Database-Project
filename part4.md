@@ -41,7 +41,7 @@ INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
 # Queries:
 
-SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 0;
+SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 1;
 
     This query returns an entire note with the title and body given the note_id.
 
