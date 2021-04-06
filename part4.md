@@ -39,8 +39,8 @@ INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/
 
 INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
-SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0;
+SELECT (note).title || ' ' || (note).body FROM notes WHERE note_id = 0;
   
-SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AND SELECT document @@ to_tsquery('str || char');
+SELECT note_id FROM notes WHERE note_id = 0 AND (SELECT (note).title || ' ' || (note).body @@ to_tsquery('str || char'));
   
-SELECT n.title FROM notes AS n WHERE note_id = 0 AND 'str' = ANY(n.keywords);
+SELECT (note).title FROM notes WHERE note_id = 0 AND 'str' = ANY(keywords);
