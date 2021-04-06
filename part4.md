@@ -41,6 +41,6 @@ INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
 SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 0;
   
-SELECT note_id FROM notes WHERE note_id = 0 AND (to_tsvector(SELECT (note).title || ' ' || (note).body FROM notes) @@ to_tsquery('str || char'));
+SELECT note_id FROM notes WHERE note_id = 0 AND (to_tsvector(SELECT (note).title || ' ' || (note).body FROM notes WHERE note_id = 0) @@ to_tsquery('str || char'));
   
 SELECT (note).title FROM notes WHERE note_id = 0 AND 'str' = ANY(keywords);
