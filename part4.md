@@ -47,4 +47,4 @@ SELECT (note).title FROM notes WHERE note_id = 0 AND 'str' = ANY(keywords);
 
 SELECT note_id FROM notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
 
-SELECT note_id FROM (SELECT * FROM notes AS n, user_notes AS u WHERE u.user_id=0 AND u.note_id=n.note_id) AS your_notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
+SELECT note_id FROM (SELECT * FROM notes AS n NATURAL JOIN user_notes AS u WHERE u.user_id=0) AS your_notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
