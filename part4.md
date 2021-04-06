@@ -29,7 +29,7 @@ CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INT
 
 CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
 
-# Queries:
+# Insert Data:
 
 INSERT INTO user_notes VALUES (1, 2);
   
@@ -39,10 +39,12 @@ INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/
 
 INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
+# Queries:
+
 SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 0;
-  
-SELECT note_id FROM notes WHERE note_id = 0 AND (to_tsvector(SELECT (note).title || ' ' || (note).body FROM notes WHERE note_id = 0) @@ to_tsquery('str || char'));
-  
+
 SELECT (note).title FROM notes WHERE note_id = 0 AND 'str' = ANY(keywords);
 
 SELECT note_id FROM notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
+
+SELECT note_id FROM (SELECT * FROM notes AS n, user_notes AS u WHERE u.user_id=0 AND u.note_id=n.note_id) WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
