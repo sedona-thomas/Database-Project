@@ -44,3 +44,5 @@ SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 0;
 SELECT note_id FROM notes WHERE note_id = 0 AND (to_tsvector(SELECT (note).title || ' ' || (note).body FROM notes WHERE note_id = 0) @@ to_tsquery('str || char'));
   
 SELECT (note).title FROM notes WHERE note_id = 0 AND 'str' = ANY(keywords);
+
+SELECT note_id FROM notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
