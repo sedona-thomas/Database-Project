@@ -35,20 +35,12 @@ INSERT INTO user_notes VALUES (1, 2);
   
 INSERT INTO notes VALUES (0, ROW('Note Title', '1-1-2021', '{keyword}', 'This is the note body.'));
 
+INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/johnBuffer/AntSimulator');
+
+INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
+
 SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0;
   
 SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AND SELECT document @@ to_tsquery('str || char');
   
 SELECT n.title FROM notes AS n WHERE note_id = 0 AND 'str' = ANY(n.keywords);
-
-
-
-
-
-
-INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/johnBuffer/AntSimulator');
-
-INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
-
-
-
