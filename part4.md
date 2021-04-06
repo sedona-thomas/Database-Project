@@ -17,33 +17,6 @@ The second addition is a full-text search over the note_pages. This allows Users
 The final addition is a trigger that, when user code is added into the user_code table, it automatically adds the user as an author and assigns them the next author-id in the author-id table, as well as adding them as a contributor, if they have not already contributed something.
 
 
-
-Composite Type: note_page type
-  
-    CREATE TYPE note_page AS (title VARCHAR(100), timestamp date NOT NULL DEFAULT CURRENT_DATE, body TEXT);
-    
-
-    
-Text attribute: notes page using note_page data type
-  
-    make search query for text attribute
-
-Trigger:
-
-    *find new one (deleteing userid from things happens automatically since it is a primary key)
-  
-    upon insert into user_code add user to author and contributor if it doesnt exist
-    
-    any time something is connected to a keyword, it is added to the keywords table
-    
-      any time a keyword is connected to another keyword, the trigger makes pairs with all keywords connected to both of them
-    
-    share notes with another user
-  
-
-
-
-
 # Create statements:
 
 CREATE TYPE note_page AS (title VARCHAR(100), time_stamp date, keywords CHAR(500)[], body TEXT);
@@ -52,7 +25,9 @@ CREATE TABLE notes (note_id int, note note_page, PRIMARY KEY (note_id));
 
 CREATE TABLE user_notes (user_id int, note_id int, PRIMARY KEY (user_id, note_id), FOREIGN KEY(user_id) REFERENCES users, FOREIGN KEY(not_id) REFERENCES notes);
 
+CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO author(author_id, name) VALUES ((SELECT max(a.author_id)+1 FROM author AS a), (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT MAX(a.author_id) FROM author AS a)) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
 
+CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
 
 # Queries:
 
@@ -66,12 +41,13 @@ SELECT n.title || ' ' || n.body AS document FROM notes AS n WHERE note_id = 0 AN
   
 SELECT n.title FROM notes AS n WHERE note_id = 0 AND 'str' = ANY(n.keywords);
 
-CREATE FUNCTION contributor_trigger() RETURNS TRIGGER AS $BODY$ BEGIN INSERT INTO author(author_id, name) VALUES ((SELECT max(a.author_id)+1 FROM author AS a), (SELECT u.name FROM users AS u WHERE u.user_id = NEW.user_id)) ON CONFLICT DO NOTHING; INSERT INTO contributor(user_id, author_id) VALUES (NEW.user_id, (SELECT MAX(a.author_id) FROM author AS a)) ON CONFLICT DO NOTHING; RETURN NEW; END; $BODY$ language plpgsql;
 
-CREATE TRIGGER add_contributor AFTER INSERT ON user_code FOR EACH ROW EXECUTE PROCEDURE contributor_trigger();
+
+
 
 
 INSERT INTO code VALUES ('johnBuffer/AntSimulator', 'AntSimulator', 'github.com/johnBuffer/AntSimulator');
+
 INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
 
