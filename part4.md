@@ -43,8 +43,16 @@ INSERT INTO user_code VALUES ('johnBuffer/AntSimulator', 1);
 
 SELECT (note).title || ': ' || (note).body FROM notes WHERE note_id = 0;
 
+    This query returns an entire note with the title and body given the note_id.
+
 SELECT note_id FROM notes WHERE 'numpy' = ANY((note).keywords);
+
+    This query searches the array of keywords in all notes for 'numpy' and returns all the note_id for all notes that have the keyword numpy. This allows a user to search notes by keyword rather than just a full text search.
 
 SELECT note_id FROM notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
 
+    This query searches the body and title of all notes for 'numpy' or 'tuple'. This allows users to search the full note for any number of strings and access the note_id for the notes containing the query.
+
 SELECT note_id FROM (SELECT * FROM notes AS n NATURAL JOIN user_notes AS u WHERE u.user_id=4) AS your_notes WHERE (to_tsvector((SELECT (note).title || ' ' || (note).body)) @@ to_tsquery('numpy | tuple'));
+
+    This query searches the body and title of all notes associated with a specific user for 'numpy' or 'tuple'. This allows users to search within their personal notes for any number of strings and access the note_id for the notes containing the query.
